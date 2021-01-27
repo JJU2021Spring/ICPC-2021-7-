@@ -1,0 +1,63 @@
+#include<iostream>
+#include<cmath>
+#include<cstdio>
+#include<cstring>
+#include<istream>
+#include<string>
+#include<vector>
+#include<queue>
+#include<set>
+#include<map>
+#include<stack>
+#include<iomanip>
+#include<algorithm>
+using namespace std;
+char convert(char character) {
+    switch (character) {
+    case 'A':case 'B':case 'C': return '2';
+    case 'D':case 'E':case 'F': return '3';
+    case 'G':case 'H':case 'I': return '4';
+    case 'J':case 'K':case 'L': return '5';
+    case 'M':case 'N':case 'O': return '6';
+    case 'P':case 'R':case 'S': return '7';
+    case 'T':case 'U':case 'V': return '8';
+    case 'W':case 'X':case 'Y': return '9';
+    }
+}
+int main() {
+	ios::sync_with_stdio;
+    int n;
+    cin >> n;
+    map<string, int> count_tel;
+    for (int i = 0; i < n; i++) {
+        string input, tele;
+        cin >> input;
+        for (unsigned int j = 0; j < input.length(); j++) {
+            if (tele.length() == 3) {
+                tele += '-';
+            }
+            if (input[j] >= '0' && input[j] <= '9') {
+                tele += input[j];
+            }
+            if (input[j] >= 'A' && input[j] <= 'Z') {
+                tele += convert(input[j]);
+            }
+        }
+        if (count_tel.count(tele) == 0) {
+            count_tel[tele] = 0;
+        }
+        count_tel[tele] += 1;
+    }
+    map<string, int>::iterator iter;
+    bool flag = false;
+    for (iter = count_tel.begin(); iter != count_tel.end(); iter++) {
+        if (iter->second > 1) {
+            cout << iter->first << ' ' << iter->second << endl;
+            flag = true;
+        }
+    }
+    if (!flag) {
+        cout << "No duplicates. ";
+    }
+    return 0;
+}
